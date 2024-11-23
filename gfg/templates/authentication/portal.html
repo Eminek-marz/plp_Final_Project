@@ -1,0 +1,52 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  {% static 'css\style.css' %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Portal</title>
+  <link rel="stylesheet" href=" {% static 'css/portal.css' %}">
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <h2>Student Portal</h2>
+      <ul>
+        <li><a href="#" id="dashboard">Dashboard</a></li>
+        <li><a href="#" id="assignments">Assignments</a></li>
+        <li><a href="#" id="grades">Grades</a></li>
+        <li><a href="#" id="schedule">Schedule</a></li>
+        <li><a href="#" id="messages">Messages</a></li>
+      </ul>
+    </div>
+
+    <div class="main-content">
+      <div id="dashboard-content" class="content">
+        <h2>Welcome to Your Dashboard</h2>
+        <p>Check your upcoming assignments, grades, and events.</p>
+      </div>
+      <div id="assignments-content" class="content">
+        <h2>Your Assignments</h2>
+        <p>Here are your upcoming assignments.</p>
+      </div>
+      <div id="grades-content" class="content">
+        <h2>Your Grades</h2>
+        <p>Check your recent grades.</p>
+      </div>
+      <div id="schedule-content" class="content">
+        <h2>Your Schedule</h2>
+        <p>View your class schedule and deadlines.</p>
+      </div>
+      <div id="messages-content" class="content">
+        <h2>Your Messages</h2>
+        <p>Read your latest messages from instructors.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

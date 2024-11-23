@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+{% load static %}
+<html>
+    <head>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>signin</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        
+
+     <div> <p class="statements">
+        Welcome back ... Where you come back to be well again.
+            </P>
+   </div>
+</div>
+<div class="login-box">
+<form action="/signin" id="Form" method="post">
+    {% csrf_token %}s
+ <h2>second time ?</h2>
+ <div class="seconding" >
+   <span class="icons"></span>
+  <input type="text" id="name"name='username' >
+  <label>fullname</label>
+ </div>
+<div class="seconding">
+   <span class="icons"></span>
+  <input type="password" id="password"name='password' >
+  <label>Password</label>
+</div>
+
+ <div class="remember-forget">
+
+ <label><input type="checkbox">
+  remember me ?</label>
+  <a href="#">forgot password ?</a>
+
+ </div>
+ <button type=" submit">login</button>
+ <div class="register-link">
+  <p>is this your first time ?  <a href="/signup">Register</a></p>
+
+        
+        <script src="" async defer></script>
+    </body>
+</html>

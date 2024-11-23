@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+{% load static %}
+
+<html>
+    <head>
+   
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href=" {% static 'css/register.css' %}">
+    </head>
+    <body>
+        {% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>{{ message }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+        
+ <div class="Registering"  >
+
+
+    <form action="/signup" method='post'>
+        {% csrf_token %}
+       <div class="filler">
+   
+      <h2>First time patient</h2>
+           
+       <div class="filler" id="name">
+           <span class="icons"></span>
+          <input type="text" name ='username' required >
+          <label for = 'username'>Full Name</label>
+       </div>
+       
+       
+       
+       <div class="filler" id="email">
+           <span class="icons"></span>
+          <input type="email" name ='email'  required>
+          <label for = 'email'>Email</label>
+       </div>
+   
+       
+       
+       <div class="filler" id="password">
+           <span class="icons"></span>
+          <input type="password"  name ='password' required>
+          <label for = 'password'>Password</label>
+       </div>
+       
+       <div class="filler" id="confirmPassword" >
+           <span class="icons"></span>
+          <input type="password"  name ='confirm_password' required>
+          <label for = 'confirm_password'>Confirm Password</label>
+       </div>
+   
+        <button class="submit">submit</button>
+   
+   </form>
+   
+   </div>
+    
+   
+   <div class="pop_up_message">
+    <p id="errorName" style="color:red;"></p>
+    <p id="errorEmail" style="color:red;"></p>
+    <p id="errorPassword" style="color:red;"></p>
+    <p id="errorMatch" style="color:red;"></p>
+   </div>
+   <div>
+   
+   
+   </section>
+    
+        
+        <script src="" async defer></script>
+    </body>
+</html>
