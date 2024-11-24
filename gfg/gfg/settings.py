@@ -27,6 +27,7 @@ EMAIL_PORT = EMAIL_PORT
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-d2t@nd%=w*mt)!h9l6z4&a*g3wk7$mv0&@&c_a83g(fvzik6c1'
+SITE_ID = 1  # Use the ID of the default site in the database
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+      'django.contrib.sites',
 ]
 
 MIDDLEWARE = [
@@ -86,10 +88,17 @@ WSGI_APPLICATION = 'gfg.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'health_db',
+        'USER': 'root',
+        'PASSWORD': '@MaxwellNganga2023',
+        'HOST': 'localhost',  # Or the database host
+        'PORT': '3306',       # Default MySQL port
     }
 }
+
+    
+
 
 
 # Password validation

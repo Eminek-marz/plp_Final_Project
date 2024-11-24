@@ -1,3 +1,4 @@
+from email.message import EmailMessage
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -7,7 +8,12 @@ from django.core.mail import send_mail
 from gfg import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode
+from django.contrib.sites.models import Site
+from django.utils.encoding import force_bytes,force_text
+from .token import generate_token
+from django.utils.http import urlsafe_b64_encode
+
+
 # Create your views here.
 def home(request):
     return render(request,'authentication/index.html')
@@ -59,11 +65,20 @@ def signup(request):
          
          current_site = get_current_site(request)
          emailSubject =  "conffirm email to login at telemedicine"
-         message2 =render_to_string('email_confirmation.html'),{
+         message2 =render_to_string('email_confirmation.html',{
            'name':username,
-           'domain': current_site_domain,
-            'vid':urlsafe_b64_encode,             
-         }
+           'domain': request.get_host(),
+            'vid': urlsafe_b64_encode(force_bytes(myuser.pk)),
+            'tokens': generate_token.make_token(myuser) 
+            } )           
+         email=EmailMessage(
+             emailSubject,
+             message2,
+             settings.EMAIL_HOST_USER
+                
+             )
+         email.failsilently =True
+         email.send()
          
          return redirect('signin')
     return render(request,'authentication/signup.html')
@@ -95,3 +110,17 @@ def signout(request):
 
 def portal(request):
     return render(request,'authentication/portal.html')
+
+def activate(request,uid64,token):
+    try:
+        uid=force_text(urlsafe_b64_encode(uid64))
+        myuser= User.objects.get(pk=uid)
+    except(TypeError,ValueError,OverflowError,User.DoesNotExist):
+        myuser =None
+    if myuser is not None and generate_token.check_token(myuser,token):
+        myuser.is_active=True
+        myuser.save()
+        login(request,myuser)
+        return redirect('home')
+    else:
+        return render(request,'activation_failed')
