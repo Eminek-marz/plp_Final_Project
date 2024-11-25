@@ -23,7 +23,7 @@ urlpatterns = [
     path('signup',views.signup,name='signup'),
     path('signin',views.signin,name='signin'),
     path('signout',views.signout,name='signout'),
-    path('emails_confirmation' ,views.email_confirmation,name='email_confirmation'),
+    path('email_confirmation' ,views.email_confirmation,name='email_confirmation'),
     path('portal',views.portal,name='portal'),
-    path('activate/<uidb64>/<token>',views.activate,name='activate')
+    path('activate/<uid64>/<token>/', views.activate, name='activate'),
 ]

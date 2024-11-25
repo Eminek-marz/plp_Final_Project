@@ -9,9 +9,11 @@ from gfg import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.contrib.sites.models import Site
-from django.utils.encoding import force_bytes,force_text
+from django.utils.encoding import force_bytes,force_str
 from .token import generate_token
-from django.utils.http import urlsafe_b64_encode
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+import base64
+
 
 
 # Create your views here.
@@ -37,7 +39,7 @@ def signup(request):
              return redirect('home')
          if password != confirmPassword:
              messages.error(request,'password do not match!!!')
-             return redirect(request,'home')
+             return redirect('home')
          
          myuser =User.objects.create_user( username=fname,email=email,password=password)
          myuser.is_active = False
@@ -65,12 +67,15 @@ def signup(request):
          
          current_site = get_current_site(request)
          emailSubject =  "conffirm email to login at telemedicine"
-         message2 =render_to_string('email_confirmation.html',{
+         message2 =render_to_string('authentication/email_confirmation.html',{
            'name':username,
            'domain': request.get_host(),
-            'vid': urlsafe_b64_encode(force_bytes(myuser.pk)),
+            'uid64': urlsafe_base64_encode(force_bytes(myuser.pk)),
             'tokens': generate_token.make_token(myuser) 
-            } )           
+            } ) 
+         
+  
+          
          email=EmailMessage(
              emailSubject,
              message2,
@@ -90,7 +95,7 @@ def signin(request):
         
         user=authenticate(username=Username, password=password)
         
-        if User is not None:
+        if user is not None:
             login(request, user) 
             return render(request,'authentication/index.html')
         
@@ -113,7 +118,7 @@ def portal(request):
 
 def activate(request,uid64,token):
     try:
-        uid=force_text(urlsafe_b64_encode(uid64))
+        uid=force_str(urlsafe_base64_decode(uid64))
         myuser= User.objects.get(pk=uid)
     except(TypeError,ValueError,OverflowError,User.DoesNotExist):
         myuser =None
@@ -123,4 +128,4 @@ def activate(request,uid64,token):
         login(request,myuser)
         return redirect('home')
     else:
-        return render(request,'activation_failed')
+        return render(request, 'authentication/activation_failed.html')

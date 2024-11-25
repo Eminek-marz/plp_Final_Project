@@ -3,9 +3,10 @@ welcome to telemedicine
  
 Hello {{name}}
 
-please confirm your email on the following link  
+Please confirm your email on the following link:
 
-confirmation link: http://{{domsin}}{% url "active" vif64=uid token=token%}
+confirmation link: http://{{domain}}{% url 'activate' uid64=vid token=tokens %}
 
 
 {% endautoescape %}
+
